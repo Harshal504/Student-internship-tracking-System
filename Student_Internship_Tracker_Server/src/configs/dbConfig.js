@@ -19,3 +19,6 @@ export async function connectDB(){
    }
 }
 
+export function getConnectionObject(){
+    return conn;
+}
