@@ -15,14 +15,27 @@ app.get("/", (request, response) => {
 
 // Api for Student
 app.get("/student/data", getAllStudents);
+app.post("/student/data", addStudents);
+app.put("/student/data", updateStudents);
+app.delete("/student/data", delStudents);
 
 
 // Api for Companies
 app.get("/company/data", getAllCompanies);
+app.post("/company/data", addCompanies);
+app.put("/company/data", updateCompanies);
+app.delete("/company/data", delCompanies);
+
+
+
 
 
 // Api for supervisor
 app.get("/supervisor/data", getAllSupervisors);
+app.post("/supervisor/data", addSupervisors);
+app.put("/supervisor/data", updateSupervisors);
+app.delete("/supervisor/data", deleteSupervisors);
+
 
 app.listen(4400, () => {
     connectDB();
