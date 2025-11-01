@@ -1,11 +1,12 @@
 import express from 'express';
 
 import { connectDB } from "./src/configs/dbConfig.js";
-import { getAllSupervisors } from './src/controllers/SupervisorController.js';
-import { getAllStudents } from './src/controllers/StudentController.js';
-import { getAllCompanies } from './src/controllers/CompanyController.js';
+// import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
+import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
+// import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
 
 const app = express();
+app.use(express.json());
 
 // The root url
 app.get("/", (request, response) => {
@@ -16,25 +17,25 @@ app.get("/", (request, response) => {
 // Api for Student
 app.get("/student/data", getAllStudents);
 app.post("/student/data", addStudents);
-app.put("/student/data", updateStudents);
-app.delete("/student/data", delStudents);
+app.put("/student/data/:id", updateStudents);
+app.delete("/student/data/:id", delStudents);
 
 
-// Api for Companies
-app.get("/company/data", getAllCompanies);
-app.post("/company/data", addCompanies);
-app.put("/company/data", updateCompanies);
-app.delete("/company/data", delCompanies);
+// // Api for Companies
+// app.get("/company/data", getAllCompanies);
+// app.post("/company/data", addCompanies);
+// app.put("/company/data", updateCompanies);
+// app.delete("/company/data", delCompanies);
 
 
 
 
 
-// Api for supervisor
-app.get("/supervisor/data", getAllSupervisors);
-app.post("/supervisor/data", addSupervisors);
-app.put("/supervisor/data", updateSupervisors);
-app.delete("/supervisor/data", deleteSupervisors);
+// // Api for supervisor
+// app.get("/supervisor/data", getAllSupervisors);
+// app.post("/supervisor/data", addSupervisors);
+// app.put("/supervisor/data", updateSupervisors);
+// app.delete("/supervisor/data", deleteSupervisors);
 
 
 app.listen(4400, () => {
