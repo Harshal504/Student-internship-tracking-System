@@ -4,6 +4,7 @@ import { connectDB } from "./src/configs/dbConfig.js";
 import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
 import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
+import { getAllInternships, addInternships, updateInternships, deleteInternships } from './src/controllers/InternshipController.js';
 
 const app = express();
 app.use(express.json());
@@ -33,6 +34,12 @@ app.get("/supervisor/data", getAllSupervisors);
 app.post("/supervisor/data", addSupervisors);
 app.put("/supervisor/data", updateSupervisors);
 app.delete("/supervisor/data", deleteSupervisors);
+
+// Api for Internship
+app.get("/internship/data", getAllInternships);
+app.post("/internship/data", addInternships);
+app.put("/internship/data/:id", updateInternships);
+app.delete("/internship/data/:id", deleteInternships);
 
 
 app.listen(4400, () => {
