@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import { connectDB } from "./src/configs/dbConfig.js";
 import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
@@ -7,6 +8,7 @@ import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // The root url
 app.get("/", (request, response) => {
@@ -38,7 +40,7 @@ app.put("/supervisor/data/:id", updateSupervisors);
 app.delete("/supervisor/data/:id", deleteSupervisors);
 
 
-app.listen(4100, () => {
+app.listen(4400, () => {
     connectDB();
     console.log("express server started");
 });
