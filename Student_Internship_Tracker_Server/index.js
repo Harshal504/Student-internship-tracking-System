@@ -1,9 +1,9 @@
 import express from 'express';
 
 import { connectDB } from "./src/configs/dbConfig.js";
-// import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
+import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
-// import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
+import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
 
 const app = express();
 app.use(express.json());
@@ -21,21 +21,18 @@ app.put("/student/data/:id", updateStudents);
 app.delete("/student/data/:id", delStudents);
 
 
+
 // // Api for Companies
 app.get("/company/data", getAllCompanies);
 app.post("/company/data", addCompanies);
 app.put("/company/data/:id", updateCompanies);
 app.delete("/company/data/:id", delCompanies);
 
-
-
-
-
-// // Api for supervisor
-// app.get("/supervisor/data", getAllSupervisors);
-// app.post("/supervisor/data", addSupervisors);
-// app.put("/supervisor/data", updateSupervisors);
-// app.delete("/supervisor/data", deleteSupervisors);
+// Api for supervisor
+app.get("/supervisor/data", getAllSupervisors);
+app.post("/supervisor/data", addSupervisors);
+app.put("/supervisor/data", updateSupervisors);
+app.delete("/supervisor/data", deleteSupervisors);
 
 
 app.listen(4400, () => {
