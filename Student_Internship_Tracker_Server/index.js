@@ -22,10 +22,10 @@ app.delete("/student/data/:id", delStudents);
 
 
 // // Api for Companies
-// app.get("/company/data", getAllCompanies);
-// app.post("/company/data", addCompanies);
-// app.put("/company/data", updateCompanies);
-// app.delete("/company/data", delCompanies);
+app.get("/company/data", getAllCompanies);
+app.post("/company/data", addCompanies);
+app.put("/company/data/:id", updateCompanies);
+app.delete("/company/data/:id", delCompanies);
 
 
 
