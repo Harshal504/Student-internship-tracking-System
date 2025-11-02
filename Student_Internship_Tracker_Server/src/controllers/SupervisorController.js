@@ -5,7 +5,7 @@ export async function getAllSupervisors(request, response) {
         const conn = getConnectionObject();
         const qry = `Select name, phone, email from supervisor`;
         const data = await conn.query(qry);
-        response.status(200).send(data[0][0]);
+        response.status(200).send(data[0]);
 
 
     } catch (error) {

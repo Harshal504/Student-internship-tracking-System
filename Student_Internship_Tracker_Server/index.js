@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { connectDB } from "./src/configs/dbConfig.js";
-// import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
+import { getAllSupervisors } from './src/controllers/SupervisorController.js';
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
 // import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
 
@@ -32,13 +32,13 @@ app.delete("/student/data/:id", delStudents);
 
 
 // // Api for supervisor
-// app.get("/supervisor/data", getAllSupervisors);
+app.get("/supervisor/data", getAllSupervisors);
 // app.post("/supervisor/data", addSupervisors);
 // app.put("/supervisor/data", updateSupervisors);
 // app.delete("/supervisor/data", deleteSupervisors);
 
 
-app.listen(4400, () => {
+app.listen(4100, () => {
     connectDB();
     console.log("express server started");
 });
