@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Table } from "react-bootstrap";
 import { getAllInternships } from "../services/Internshipservices";
+import "../styles/tablestyle.css";
+
 
 export function InternshipsList() {
 
@@ -26,7 +28,8 @@ export function InternshipsList() {
                 </Col>
             </Row>
             {
-                internships.length === 0 ? <Alert variant="warning">No Internship information found</Alert> : <Table className="mt-3">
+                internships.length === 0 ? <Alert variant="warning">No Internship information found</Alert> : 
+                <Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
                     <thead>
                         <tr>
                             <th>Internship Id</th> 

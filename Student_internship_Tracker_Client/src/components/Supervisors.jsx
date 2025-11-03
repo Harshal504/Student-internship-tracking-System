@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Table } from "react-bootstrap";
 import { getAllSupervisors } from "../services/Supervisorservices";
+import "../styles/tablestyle.css";
 
 
 
@@ -31,7 +32,8 @@ export function SupervisorsList() {
                 </Col>
             </Row>
             {
-                supervisors.length === 0 ? <Alert variant="warning">No Supervisor information found</Alert> : <Table className="mt-3">
+                supervisors.length === 0 ? <Alert variant="warning">No Supervisor information found</Alert> : 
+                <Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
                     <thead>
                         <tr>
                             <th>Supervisor Id</th>

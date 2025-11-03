@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Table } from "react-bootstrap";
 import { getAllCompanies } from "../services/Companyservices";
+import "../styles/tablestyle.css";
 
 export function CompaniesList() {
 
@@ -28,7 +29,8 @@ export function CompaniesList() {
                 </Col>
             </Row>
             {
-                companies.length === 0 ? <Alert variant="warning">No Company information found</Alert> : <Table className="mt-3">
+                companies.length === 0 ? <Alert variant="warning">No Company information found</Alert> : 
+                <Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
                     <thead>
                         <tr>
                             <th>Company Id</th>

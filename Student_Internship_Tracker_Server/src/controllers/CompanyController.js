@@ -3,7 +3,7 @@ import { getConnectionObject } from "../configs/dbConfig.js";
 export async function getAllCompanies(request, response) {
     try {
         const conn = getConnectionObject();
-        const qry = `Select name, email, tech_domain from company`;
+        const qry = `Select company_id, name, email, tech_domain from company`;
         const data = await conn.query(qry);
         response.status(200).send(data[0]);
 
