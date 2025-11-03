@@ -5,6 +5,7 @@ import { connectDB } from "./src/configs/dbConfig.js";
 import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors } from './src/controllers/SupervisorController.js';
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
 import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
+import { getAllInternships, addInternships, updateInternships, deleteInternships } from './src/controllers/InternshipController.js';
 import { deleteApplication, getAllApplications, getApplicationsByStudent, updateApplication, updateApplicationStatus } from "./src/controllers/ApplicationController.js";
 
 
@@ -26,16 +27,11 @@ app.post("/student/data", addStudents);
 app.put("/student/data/:id", updateStudents);
 app.delete("/student/data/:id", delStudents);
 
-
-// Api for Companies
+// // Api for Companies
 app.get("/company/data", getAllCompanies);
 app.post("/company/data", addCompanies);
 app.put("/company/data/:id", updateCompanies);
 app.delete("/company/data/:id", delCompanies);
-
-
-
-
 
 // // Api for supervisor
 app.get("/supervisor/data", getAllSupervisors);
@@ -43,6 +39,11 @@ app.post("/supervisor/data", addSupervisors);
 app.put("/supervisor/data/:id", updateSupervisors);
 app.delete("/supervisor/data/:id", deleteSupervisors);
 
+// Api for Internship
+app.get("/internship/data", getAllInternships);
+app.post("/internship/data", addInternships);
+app.put("/internship/data/:id", updateInternships);
+app.delete("/internship/data/:id", deleteInternships);
 
 // Api for applications
 app.get("/application/data", getAllApplications);
