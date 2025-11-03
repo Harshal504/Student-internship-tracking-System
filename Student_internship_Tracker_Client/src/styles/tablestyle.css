@@ -1,0 +1,60 @@
+/* Table general look */
+.table {
+  border-radius: 10px !important;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+
+/* Header styling */
+/* Table header with light blue translucent background */
+table.table > thead > tr > th {
+  background-color: rgba(13, 110, 253, 0.15) !important;
+  color: #0d6efd !important;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+}
+
+
+/* Cell spacing and font */
+.table td,
+.table th {
+  padding: 0.9rem 1rem;
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.08) !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+/* Bordered table refinement */
+.table-bordered > :not(caption) > * {
+  border-color: #dee2e6;
+}
+
+
+
+select.form-select {
+  min-width: 160px;
+}
+
+button.btn-outline-success {
+  transition: 0.3s;
+}
+
+button.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.9rem;
+  }
+}

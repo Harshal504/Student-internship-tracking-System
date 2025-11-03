@@ -6,6 +6,10 @@ import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
 import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
 import { getAllInternships, addInternships, updateInternships, deleteInternships } from './src/controllers/InternshipController.js';
+import { deleteApplication, getAllApplications, getApplicationsByStudent, updateApplication, updateApplicationStatus } from "./src/controllers/ApplicationController.js";
+
+
+
 
 const app = express();
 app.use(express.json());
@@ -40,6 +44,14 @@ app.get("/internship/data", getAllInternships);
 app.post("/internship/data", addInternships);
 app.put("/internship/data/:id", updateInternships);
 app.delete("/internship/data/:id", deleteInternships);
+
+// Api for applications
+app.get("/application/data", getAllApplications);
+app.get("/application/data/:studentId", getApplicationsByStudent);
+app.put("/application/data/:applicationId", updateApplicationStatus);
+app.put("/application/data/:id", updateApplication);
+app.delete("/application/data/:id", deleteApplication);
+
 
 app.listen(4400, () => {
     connectDB();
