@@ -174,3 +174,36 @@ export async function updateApplication(request, response) {
     response.status(500).send({ message: "Something went wrong" });
   }
 }
+
+export async function createApplication(req, res) {
+    try {
+        const conn = getConnectionObject();
+        const {
+            student_id,
+            internship_id,
+            company_id
+        } = req.body;
+
+        const query = `
+            INSERT INTO application 
+            (student_id, internship_id, company_id)
+            VALUES (?, ?, ?)
+        `;
+
+        const [result] = await conn.query(query, [
+            student_id,
+            internship_id,
+            company_id
+        ]);
+
+        if (result.affectedRows === 1) {
+            res.status(200).send({ message: "Application submitted" });
+        } else {
+            res.status(500).send({ message: "Application failed" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Server error" });
+    }
+}
+
