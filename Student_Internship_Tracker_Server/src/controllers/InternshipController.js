@@ -29,7 +29,7 @@ export async function addInternships(request, response) {
     try {
         const conn = getConnectionObject();
         const data = request.body;
-        const qry = `Insert into internship (company_id, title) values ('${data.company_id}', '${data.title}')`;
+        const qry = `Insert into internship (company_id, title) values (${data.company_id}, '${data.title}')`;
         const [resultSet] = await conn.query(qry);
         if (resultSet.affectedRows === 1) {
             response.status(200).send({ message: 'Internship added' });
@@ -73,5 +73,25 @@ export async function deleteInternships(request, response) {
     } catch (error) {
         console.log(error);
         response.status(500).send({ message: 'Something went wrong' });
+    }
+}
+
+export async function updateInternshipStatus(req, res) {
+    try {
+        const conn = getConnectionObject();
+        const { internshipId } = req.params;
+        const { status } = req.body;
+
+        const qry = `UPDATE internship SET status = ? WHERE internship_id = ?`;
+        const [result] = await conn.query(qry, [status, internshipId]);
+
+        if (result.affectedRows === 1) {
+            res.status(200).send({ message: "Internship status updated" });
+        } else {
+            res.status(404).send({ message: "Internship not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Server error" });
     }
 }
