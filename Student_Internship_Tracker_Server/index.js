@@ -6,7 +6,9 @@ import { getAllSupervisors, addSupervisors, updateSupervisors, deleteSupervisors
 import { getAllStudents, addStudents, updateStudents, delStudents } from './src/controllers/StudentController.js';
 import { getAllCompanies, addCompanies, updateCompanies, delCompanies } from './src/controllers/CompanyController.js';
 import { getAllInternships, addInternships, updateInternships, deleteInternships } from './src/controllers/InternshipController.js';
-import { deleteApplication, getAllApplications, getApplicationsByStudent, updateApplication, updateApplicationStatus } from "./src/controllers/ApplicationController.js";
+import { createApplication, deleteApplication, getAllApplications, getApplicationsByStudent, updateApplication, updateApplicationStatus } from "./src/controllers/ApplicationController.js";
+import { updateInternshipStatus } from './src/controllers/InternshipController.js';
+
 import { loginUser, signUpUser } from './src/controllers/SignInController.js';
 import { ROLES } from './src/constants/RoleConstants.js';
 import { verifyToken, authorize } from './src/middlewares/VerifyToken.js';
@@ -46,6 +48,7 @@ app.get("/internship/data", verifyToken ,getAllInternships);
 app.post("/internship/data", addInternships);
 app.put("/internship/data/:id", updateInternships);
 app.delete("/internship/data/:id", deleteInternships);
+app.put("/status/:internshipId", updateInternshipStatus);
 
 // Api for applications
 app.get("/application/data", getAllApplications);
@@ -53,7 +56,7 @@ app.get("/application/data/:studentId", getApplicationsByStudent);
 app.put("/application/data/:applicationId", updateApplicationStatus);
 app.put("/application/data/:id", updateApplication);
 app.delete("/application/data/:id", deleteApplication);
-
+app.post("/application/create", createApplication);
 
 // API for Login
 app.post("/login", loginUser);
