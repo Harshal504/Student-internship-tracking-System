@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Button, Container, Form, Row, Col, Card } from "react-bootstrap";
+import { Button, Container, Form, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { storeToken } from "../services/TokenService";
+import { storeRole } from "../services/RoleService";
+import { SignInUser } from "../services/SignInservices";
 
 export function SignIn() {
     const [formData, setFormData] = useState({
@@ -9,6 +12,7 @@ export function SignIn() {
         role: "",
     });
 
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -16,56 +20,57 @@ export function SignIn() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            console.log("Sign In Data:", formData);
-            // TODO: call login API here
-            // const response = await checkCredentials(formData);
-            // console.log(response);
-            // if (response.status === 200) {
-            //     // show success message
-            //     toast.success("Product Added", {
-            //         position: "top-right",
-            //         autoClose: 5000,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "colored",
-            //         transition: Bounce,
-            //     });
-        }
-        catch (error) {
-            console.log(error);
-            // if (error.response.status === 500) {
-            //     // show failure message
-            //     toast.error("Something went wrong", {
-            //         position: "top-right",
-            //         autoClose: 5000,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "colored",
-            //         transition: Bounce,
-            //     });
-            // }
-        }
+            setLoading(true);
+            const response = await SignInUser(formData);
 
+            if (response.status === 200) {
+                const { token, user } = response.data;
 
+                // ✅ Store token and user details in localStorage
+                storeToken(token);
+                localStorage.setItem("user", JSON.stringify(user));
+                // storeRole(JSON.stringify(user.role));
+                storeRole(user.role)
+
+                alert("Login successful!");
+
+                // ✅ Navigate based on user role window.location.href
+                if (user.role === "student") window.location.href="/dashboard";
+                else if (user.role === "company") window.location.href="/dashboard";
+                else if (user.role === "supervisor") window.location.href="/dashboard";
+                else window.location.href="/";
+
+                // if (user.role === "student") navigate("/dashboard");
+                // else if (user.role === "company") navigate("/dashboard");
+                // else if (user.role === "supervisor") navigate("/dashboard");
+                // else navigate("/");
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            alert(error.response?.data?.message || "Invalid credentials. Please try again.");
+        } 
+        finally {
+            setLoading(false);
+        }
     };
 
     return (
         <Container className="d-flex justify-content-center align-items-center vh-100">
             <Card className="p-4 shadow-lg rounded-4" style={{ maxWidth: "420px", width: "100%" }}>
                 <h3 className="text-center mb-4 text-primary">Sign In</h3>
+
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formRole" className="mb-3">
                         <Form.Label>Role</Form.Label>
-                        <Form.Select name="role" value={formData.role} onChange={handleChange} required>
+                        <Form.Select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                        >
                             <option value="">Select Role</option>
                             <option value="student">Student</option>
                             <option value="company">Company</option>
@@ -97,9 +102,16 @@ export function SignIn() {
                         />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100">
-                        Sign In
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        className="w-100"
+                        disabled={loading}
+                    >
+                        {/* {"Sign In"} */}
+                        {loading ? "Signing In..." : "Sign In"}
                     </Button>
+                    {"Student: amit.sharma@student.in. amitpwd"}
                 </Form>
 
                 <p className="text-center mt-3">

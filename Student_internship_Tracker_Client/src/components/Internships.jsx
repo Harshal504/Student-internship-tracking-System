@@ -44,7 +44,7 @@ export function InternshipsList() {
                         {
                             internships.map((internship) => {
                                 return (    
-                                    <tr>
+                                    <tr key={internship.internship_id}>
                                         <td>{internship.internship_id}</td>
                                         <td>{internship.company_id}</td>
                                         <td>{internship.company_name}</td>

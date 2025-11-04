@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { getAllApplications, deleteApplication } from "../services/Applicationservices";
 import "../styles/tablestyle.css";
+// import { getRole } from "../services/RoleService";
+import { getUser } from "../services/UserService";
 
-export function ApplicationsManager({ loggedInStudentId = null }) {
+export function ApplicationsManager({ loggedInStudentId = getUser()?.student_id }) {
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [filter, setFilter] = useState("");
-
+  // console.log(loggedInStudentId);
   // Fetch all applications
   const fetchApplications = async () => {
     try {

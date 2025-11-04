@@ -1,6 +1,6 @@
 
 import { Container, Row, Col, Button, Card, Image } from "react-bootstrap";
-import myImage from "/Users/harshaltarmale/Projects/CDAC_projects/Student_Internship_Tracker/Student_internship_Tracker_Client/public/homeimg1.png"
+import myImage from "../../public/homeimg1.png"
 export function Homepage() {
   return (
     <div>

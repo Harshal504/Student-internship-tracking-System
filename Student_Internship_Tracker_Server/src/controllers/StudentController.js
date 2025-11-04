@@ -18,6 +18,7 @@ export async function addStudents(request, response) {
     try {
         const conn = getConnectionObject();
         const data = request.body;
+        console.log(request);
         const qry = `Insert into student (supervisor_id, name, phone, email, password, education) values ('${data.supervisor_id}','${data.name}', '${data.phone}', '${data.email}', '${data.password}', '${data.education}')`;
         const [resultSet] = await conn.query(qry);
         if(resultSet.affectedRows === 1){

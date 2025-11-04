@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row, Table } from "react-bootstrap";
-import { getAllApplications } from "../services/ApplicationServices";
+import { getAllApplications } from "../services/Applicationservices";
+import { getRole } from "../services/RoleService";
+import { getUser } from "../services/UserService";
 import "../styles/tablestyle.css";
 
-export function ApplicationsList({ loggedInStudentId = null }) {
+export function ApplicationsList() {
     const [applications, setApplications] = useState([]);
     const [filteredApplications, setFilteredApplications] = useState([]);
     const [filters, setFilters] = useState({
@@ -12,18 +14,24 @@ export function ApplicationsList({ loggedInStudentId = null }) {
         status: "",
     });
 
-    // Fetch all applications
+    const role = getRole();
+    const user = getUser(); // e.g. { student_id, company_id, supervisor_id }
+
     const fetchApplications = async () => {
         try {
             const response = await getAllApplications();
-            console.log(response.data);
             let allApps = response.data;
 
-            // Apply internal filter if logged in as a student
-            if (loggedInStudentId) {
-                allApps = allApps.filter(
-                    (app) => app.student_id === loggedInStudentId
-                );
+            // 🔒 Role-based auto-filtering
+            if (role === "student" && user?.student_id) {
+                allApps = allApps.filter(app => app.student_id === user.student_id);
+            } 
+            else if (role === "company" && user?.company_id) {
+                allApps = allApps.filter(app => app.company_id === user.company_id);
+            } 
+            else if (role === "supervisor") {
+                // Supervisors see everything — no filtering
+                allApps = allApps;
             }
 
             setApplications(allApps);
@@ -37,32 +45,33 @@ export function ApplicationsList({ loggedInStudentId = null }) {
         fetchApplications();
     }, []);
 
-    // Apply filters manually
+    // 🔍 Manual filters
     const handleApplyFilters = () => {
         let result = applications;
 
         if (filters.studentId.trim() !== "") {
             result = result.filter((a) =>
-                a.student_id.toString().includes(filters.studentId.trim())
+                a.student_id?.toString().includes(filters.studentId.trim())
             );
         }
 
         if (filters.companyId.trim() !== "") {
             result = result.filter((a) =>
-                a.company_id.toString().includes(filters.companyId.trim())
+                a.company_id?.toString().includes(filters.companyId.trim())
             );
         }
 
         if (filters.status.trim() !== "") {
             result = result.filter((a) =>
-                a.status.toLowerCase().includes(filters.status.toLowerCase())
+                a.application_status
+                    ?.toLowerCase()
+                    .includes(filters.status.toLowerCase())
             );
         }
 
         setFilteredApplications(result);
     };
 
-    // Clear filters
     const handleClearFilters = () => {
         setFilters({ studentId: "", companyId: "", status: "" });
         setFilteredApplications(applications);
@@ -76,7 +85,7 @@ export function ApplicationsList({ loggedInStudentId = null }) {
                 </Col>
             </Row>
 
-            {/* Filter Inputs */}
+            {/* 🔎 Filter Inputs */}
             <Row className="g-2 mb-3">
                 <Col md={3}>
                     <Form.Control
@@ -86,7 +95,7 @@ export function ApplicationsList({ loggedInStudentId = null }) {
                         onChange={(e) =>
                             setFilters({ ...filters, studentId: e.target.value })
                         }
-                        disabled={!!loggedInStudentId} // Disable if already filtered internally
+                        disabled={role === "student"} // prevent student from changing
                     />
                 </Col>
                 <Col md={3}>
@@ -97,6 +106,7 @@ export function ApplicationsList({ loggedInStudentId = null }) {
                         onChange={(e) =>
                             setFilters({ ...filters, companyId: e.target.value })
                         }
+                        disabled={role === "company"} // prevent company from changing
                     />
                 </Col>
                 <Col md={3}>
@@ -104,7 +114,9 @@ export function ApplicationsList({ loggedInStudentId = null }) {
                         type="text"
                         placeholder="Filter by Status"
                         value={filters.status}
-                        onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                        onChange={(e) =>
+                            setFilters({ ...filters, status: e.target.value })
+                        }
                     />
                 </Col>
                 <Col md={3} className="d-flex gap-2">
@@ -117,17 +129,11 @@ export function ApplicationsList({ loggedInStudentId = null }) {
                 </Col>
             </Row>
 
-            {/* Table */}
+            {/* 🧾 Applications Table */}
             {filteredApplications.length === 0 ? (
                 <Alert variant="warning">No application records found.</Alert>
             ) : (
-                <Table
-                    striped
-                    bordered
-                    hover
-                    responsive
-                    className="align-middle shadow-sm mt-3"
-                >
+                <Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
                     <thead>
                         <tr>
                             <th>Application ID</th>
