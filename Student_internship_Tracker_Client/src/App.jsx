@@ -18,6 +18,9 @@ import { StudentsList } from "./components/Students";
 import { ApplicationsManager } from "./components/ApplicationEdit";
 import { ApplicationsStatusUpdate } from "./components/ApplicationStatusUpdater";
 import { ApplicationsList } from "./components/Applications";
+import { PostInternship } from "./components/InternshipForm";
+import { ApplyInternship } from "./components/InternshipApply";
+import { InternshipStatusUpdate } from "./components/InternshipStatusUpdater";
 
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ROLES } from "./constants/RoleConstant";
@@ -55,6 +58,9 @@ function App() {
             element={<PrivateRoute allowedRoles={[ROLES.STUDENT]} />}
           >
             <Route path="/applicationsEdit" element={<ApplicationsManager />} />
+          <Route path="/internshipform" element={<PostInternship />} />
+          <Route path="/applyInternship" element={<ApplyInternship />} />
+          <Route path="/internshipStatusUpdate" element={<InternshipStatusUpdate />} />
           </Route>
 
           {/* 🏢 Company-only routes */}
