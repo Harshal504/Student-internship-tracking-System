@@ -59,8 +59,8 @@ export function Navigationbar() {
                     <LinkContainer to="/dashboard">
                         <Nav.Link>Dashboard</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/internships">
-                        <Nav.Link>Internships</Nav.Link>
+                    <LinkContainer to="/applyInternship">
+                        <Nav.Link>Apply Internships</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/applicationsEdit">
                         <Nav.Link>Applications Edit</Nav.Link>
@@ -97,8 +97,11 @@ export function Navigationbar() {
                     <LinkContainer to="/dashboard">
                         <Nav.Link>Dashboard</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/internships">
-                        <Nav.Link>Internships</Nav.Link>
+                    <LinkContainer to="/internshipform">
+                        <Nav.Link>Create Internships</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/internshipStatusUpdate">
+                        <Nav.Link>Internships Status Updater</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/applicationsStatusUpdate">
                         <Nav.Link>Application Status Updater</Nav.Link>

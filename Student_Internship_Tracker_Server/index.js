@@ -48,7 +48,7 @@ app.get("/internship/data", verifyToken ,getAllInternships);
 app.post("/internship/data", addInternships);
 app.put("/internship/data/:id", updateInternships);
 app.delete("/internship/data/:id", deleteInternships);
-app.put("/status/:internshipId", updateInternshipStatus);
+app.put("/internship/:internshipId", updateInternshipStatus);
 
 // Api for applications
 app.get("/application/data", getAllApplications);

@@ -58,9 +58,9 @@ function App() {
             element={<PrivateRoute allowedRoles={[ROLES.STUDENT]} />}
           >
             <Route path="/applicationsEdit" element={<ApplicationsManager />} />
-          <Route path="/internshipform" element={<PostInternship />} />
+          
           <Route path="/applyInternship" element={<ApplyInternship />} />
-          <Route path="/internshipStatusUpdate" element={<InternshipStatusUpdate />} />
+          
           </Route>
 
           {/* 🏢 Company-only routes */}
@@ -68,7 +68,9 @@ function App() {
             element={<PrivateRoute allowedRoles={[ROLES.COMPANY]} />}
           >
             <Route path="/applicationsStatusUpdate" element={<ApplicationsStatusUpdate />} />
-            {/* <Route path="/applications" element={<ApplicationsList />} /> */}
+            <Route path="/internshipStatusUpdate" element={<InternshipStatusUpdate />} />
+            <Route path="/internshipform" element={<PostInternship />} />
+ 
           </Route>
 
           {/* 👨‍🏫 Supervisor-only routes */}
