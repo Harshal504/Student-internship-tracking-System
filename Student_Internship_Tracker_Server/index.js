@@ -30,6 +30,8 @@ app.get("/student/data", verifyToken, authorize([ROLES.SUPERVISOR, ROLES.COMPANY
 app.post("/student/data", addStudents);
 app.put("/student/data/:id", updateStudents);
 app.delete("/student/data/:id", delStudents);
+app.get("/student/:supervisor_id", getStudentsBySupervisorID);
+
 
 // // Api for Companies
 app.get("/company/data", getAllCompanies);
@@ -49,6 +51,7 @@ app.post("/internship/data", addInternships);
 app.put("/internship/data/:id", updateInternships);
 app.delete("/internship/data/:id", deleteInternships);
 app.put("/internship/:internshipId", updateInternshipStatus);
+app.get("/internship/:company_id", getInternshipsByCompanyID);
 
 // Api for applications
 app.get("/application/data", getAllApplications);
@@ -57,6 +60,14 @@ app.put("/application/data/:applicationId", updateApplicationStatus);
 app.put("/application/data/:id", updateApplication);
 app.delete("/application/data/:id", deleteApplication);
 app.post("/application/create", createApplication);
+app.get("/application/:company_id", getApplicationsByCompanyID);
+
+// Api for skills
+app.get("/skill/data", getAllSkills);
+app.get("/skills/:studentId", getSkillsByStudentId);
+app.post("/skill/data", addSkills);
+app.put("/skill/data/:id", updateSkills);
+app.delete("/skill/data/:id", deleteSkills);
 
 // API for Login
 app.post("/login", loginUser);
