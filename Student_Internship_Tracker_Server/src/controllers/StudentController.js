@@ -76,4 +76,17 @@ export async function delStudents(request, response) {
 }
 
 
+export async function getStudentsBySupervisorID(request, response) {
+    try {
+        const conn = getConnectionObject();
+        const { supervisor_id } = request.params;
+        const students = await conn.query("SELECT * FROM student WHERE supervisor_id = ?", [supervisor_id]);
+        response.status(200).send(students[0]);
+
+    } catch (error) {
+        console.log(error);
+        response.status(500).send({ message: 'Something went wrong' });
+    }
+}
+
 
