@@ -207,3 +207,18 @@ export async function createApplication(req, res) {
     }
 }
 
+
+export async function getApplicationsByCompanyID(request, response) {
+    try {
+        const { company_id } = request.params;
+        const conn = getConnectionObject();
+        const qry = `SELECT * FROM Application where company_id = ?`;
+      
+        const data = await conn.query(qry, [company_id]);
+        response.status(200).send(data[0]);
+    } catch (error) {
+        console.log(error);
+        response.status(500).send({ message: 'Something went wrong' });
+    }
+}
+
