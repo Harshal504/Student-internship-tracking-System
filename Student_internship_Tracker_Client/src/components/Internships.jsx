@@ -22,9 +22,11 @@ export function InternshipsList() {
     }, []); 
     return (
         <Container className="mt-3">
-            <Row>   
-                <Col lg={8}>
-                    <div variant="primary">Internship List</div>
+            
+
+            <Row className="align-items-center mb-3">
+                <Col>
+                    <h4 className="fw-bold text-primary mb-0">Internship List</h4>
                 </Col>
             </Row>
             {

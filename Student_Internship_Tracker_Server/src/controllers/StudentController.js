@@ -3,7 +3,7 @@ import { getConnectionObject } from "../configs/dbConfig.js";
 export async function getAllStudents(request, response) {
     try {
         const conn = getConnectionObject();
-        const qry = `Select student_id, name, phone, email, resume_url, education from student`;
+        const qry = `Select student_id, supervisor_id, name, phone, email, resume_url, education from student`;
         const data = await conn.query(qry);
         response.status(200).send(data[0]);
 
@@ -74,3 +74,6 @@ export async function delStudents(request, response) {
         response.status(500).send({ message: 'Something went wrong' });
     }
 }
+
+
+

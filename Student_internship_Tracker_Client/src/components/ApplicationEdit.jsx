@@ -5,10 +5,11 @@ import "../styles/tablestyle.css";
 // import { getRole } from "../services/RoleService";
 import { getUser } from "../services/UserService";
 
-export function ApplicationsManager({ loggedInStudentId = getUser()?.student_id }) {
+export function ApplicationsManager() {
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
-  const [filter, setFilter] = useState("");
+
+  const loggedInStudentId = getUser()?.student_id;
   // console.log(loggedInStudentId);
   // Fetch all applications
   const fetchApplications = async () => {
@@ -34,24 +35,6 @@ export function ApplicationsManager({ loggedInStudentId = getUser()?.student_id 
     fetchApplications();
   }, []);
 
-  // Apply filter by Student ID (for now)
-  const handleFilter = () => {
-    if (filter.trim() === "") {
-      setFilteredApplications(applications);
-    } else {
-      setFilteredApplications(
-        applications.filter((a) =>
-          a.student_id.toString().includes(filter.trim())
-        )
-      );
-    }
-  };
-
-  // Clear filter
-  const handleClear = () => {
-    setFilter("");
-    setFilteredApplications(applications);
-  };
 
   // Delete application
   const handleDelete = async (appId) => {
@@ -75,26 +58,6 @@ export function ApplicationsManager({ loggedInStudentId = getUser()?.student_id 
         </Col>
       </Row>
 
-      {/* Filter */}
-      <Row className="g-2 mb-3">
-        <Col md={4}>
-          <Form.Control
-            type="text"
-            placeholder="Filter by Student ID"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            disabled={!!loggedInStudentId}
-          />
-        </Col>
-        <Col md={4} className="d-flex gap-2">
-          <Button variant="primary" onClick={handleFilter}>
-            Apply
-          </Button>
-          <Button variant="secondary" onClick={handleClear}>
-            Clear
-          </Button>
-        </Col>
-      </Row>
 
       {/* Applications Table */}
       {filteredApplications.length === 0 ? (

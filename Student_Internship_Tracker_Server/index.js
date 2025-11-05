@@ -44,7 +44,7 @@ app.put("/supervisor/data/:id", updateSupervisors);
 app.delete("/supervisor/data/:id", deleteSupervisors);
 
 // Api for Internship
-app.get("/internship/data", verifyToken ,getAllInternships);
+app.get("/internship/data", verifyToken ,authorize([ROLES.SUPERVISOR, ROLES.COMPANY]),getAllInternships);
 app.post("/internship/data", addInternships);
 app.put("/internship/data/:id", updateInternships);
 app.delete("/internship/data/:id", deleteInternships);

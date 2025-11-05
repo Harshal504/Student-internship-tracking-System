@@ -24,6 +24,7 @@ import { InternshipStatusUpdate } from "./components/InternshipStatusUpdater";
 
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ROLES } from "./constants/RoleConstant";
+import { StudentsListEdit } from "./components/Studentedit";
 
 function App() {
   return (
@@ -79,7 +80,7 @@ function App() {
           >
             <Route path="/supervisors" element={<SupervisorsList />} />
             <Route path="/applications" element={<ApplicationsList />} />
-            <Route path="/students" element={<StudentsList />} />
+            <Route path="/students" element={<StudentsListEdit />} />
           </Route>
         </Routes>
 

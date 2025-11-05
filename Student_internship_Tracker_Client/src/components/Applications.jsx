@@ -84,6 +84,7 @@ export function ApplicationsList() {
                     <h4 className="fw-bold text-primary mb-0">Applications List</h4>
                 </Col>
             </Row>
+            
 
             {/* 🔎 Filter Inputs */}
             <Row className="g-2 mb-3">
