@@ -1,23 +1,26 @@
 Student Internship Tracking System - README
-🎓 Student Internship Tracking System
+# 🎓 Student Internship Tracking System
 
 A full-stack web platform built to streamline internship management for students, companies, and supervisors.  
 The system enables students to register, apply for internships, and manage applications; companies to post and review internships; and supervisors to monitor assigned students and company data.
 
 ---
 
-🚀 Tech Stack
+## 🚀 Tech Stack
 
-Frontend: React, React Bootstrap
-Backend: Node.js, Express.js
-Database: MySQL
-Authentication: JWT (JSON Web Token)
-Language: JavaScript (ES6+)
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | React, React Bootstrap |
+| **Backend** | Node.js, Express.js |
+| **Database** | MySQL |
+| **Authentication** | JWT (JSON Web Token) |
+| **Language** | JavaScript (ES6+) |
 
 ---
 
-📁 Folder Structure
+## 📁 Folder Structure
 
+```bash
 Student-internship-tracking-System/
 │
 ├── frontend/              # React app (Vite or CRA)
@@ -33,13 +36,13 @@ Student-internship-tracking-System/
 │   └── ...
 │
 └── README.md
-
+```
 GitHub Repository: https://github.com/Harshal504/Student-internship-tracking-System
 
 ---
+## ⚙️ Setup Instructions
 
-⚙️ Setup Instructions
-
+```bash
 Frontend Setup:
 cd frontend
 npm i
@@ -51,7 +54,7 @@ npm i
 node index.js
 
 Node Version: 22
-
+```
 ---
 
 🔑 Core Features
@@ -87,7 +90,7 @@ Node Version: 22
 - Developed Sign-in and Sign-up components and APIs
 - Integrated JWT tokenization and authorization
 
-🧩 Vaishak
+🧩 Vaishakh
 - Worked on Company-related modules
 - Developed APIs and components for fetching and displaying company and internship data
 - Created internship application and listing APIs/components
@@ -115,6 +118,6 @@ This project is open-source and available under the MIT License.
 ---
 
 💫 Developed with collaboration and dedication by:
-Vaishak, Rachana, and Harshal
+Harshal, Rachana, and Vaishak
 
 
