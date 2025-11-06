@@ -23,12 +23,14 @@ The system enables students to register, apply for internships, and manage appli
 ```bash
 Student-internship-tracking-System/
 │
-├── frontend/              # React app (Vite or CRA)
+├── Database/                                               #contains Mysql SQL files
+│
+├── Student-internship-tracking-System-client/              # React app (Vite or CRA)
 │   ├── src/
 │   ├── package.json
 │   └── ...
 │
-├── backend/               # Node.js + Express API
+├── Student-internship-tracking-System-server/               # Node.js + Express API
 │   ├── index.js
 │   ├── routes/
 │   ├── controllers/
