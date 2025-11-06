@@ -1,7 +1,11 @@
 
 import { Container, Row, Col, Button, Card, Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 import myImage from "../../public/homeimg1.png"
 export function Homepage() {
+
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -26,7 +30,7 @@ export function Homepage() {
                 students effectively ensuring meaningful and successful experiences.
               </p>
 
-              <Button variant="primary" size="lg" className="mt-4">
+              <Button variant="primary" size="lg" onClick={() => navigate("/signin")} className="mt-4">
                 Get Started
               </Button>
             </Col>
@@ -40,38 +44,40 @@ export function Homepage() {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-white py-5 border-top">
-        <Container>
-          <Row className="text-center">
-            <Col md={4} className="mb-4 mb-md-0">
-              <Card className="border-0">
-                <Card.Body>
-                  <h2 className="fw-bold text-primary">500+</h2>
-                  <p className="text-muted mb-0">Students</p>
-                </Card.Body>
-              </Card>
-            </Col>
+      <div className="bg-gradient py-5 border-top">
+  <Container>
+    <Row className="text-center justify-content-center">
+      <Col md={4} sm={6} xs={12} className="mb-4">
+        <Card className="border-0 shadow-sm rounded-4 stat-card h-100">
+          <Card.Body>
+           
+            <h2 className="fw-bold text-primary mb-1">500+</h2>
+            <p className="text-muted mb-0">Students</p>
+          </Card.Body>
+        </Card>
+      </Col>
 
-            <Col md={4} className="mb-4 mb-md-0">
-              <Card className="border-0">
-                <Card.Body>
-                  <h2 className="fw-bold text-primary">50+</h2>
-                  <p className="text-muted mb-0">Companies</p>
-                </Card.Body>
-              </Card>
-            </Col>
+      <Col md={4} sm={6} xs={12} className="mb-4">
+        <Card className="border-0 shadow-sm rounded-4 stat-card h-100">
+          <Card.Body>
+            <h2 className="fw-bold text-primary mb-1">50+</h2>
+            <p className="text-muted mb-0">Companies</p>
+          </Card.Body>
+        </Card>
+      </Col>
 
-            <Col md={4}>
-              <Card className="border-0">
-                <Card.Body>
-                  <h2 className="fw-bold text-primary">700+</h2>
-                  <p className="text-muted mb-0">Placements</p>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Col md={4} sm={6} xs={12} className="mb-4">
+        <Card className="border shadow-sm rounded-4 stat-card h-100">
+          <Card.Body>
+            <h2 className="fw-bold text-primary mb-1">700+</h2>
+            <p className="text-muted mb-0">Placements</p>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+  </Container>
+</div>
+
     </div>
   );
 };

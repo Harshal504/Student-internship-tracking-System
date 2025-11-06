@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Table, Form, Button } from "react-bootstrap";
 import { getAllStudents, deleteStudentById } from "../services/Studentservices"; // ✅ make sure this service exists
 import { getUser } from "../services/UserService";
+import { EditStudentModal } from "./EditStudentModal";
+
 import "../styles/tablestyle.css";
 
 export function StudentsListEdit() {
@@ -12,6 +14,9 @@ export function StudentsListEdit() {
     supervisorId: "",
   });
   const [filteredStudents, setFilteredStudents] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+
 
   // ✅ Get supervisor ID from localStorage
   const supervisorId = getUser()?.supervisor_id;
@@ -90,12 +95,8 @@ export function StudentsListEdit() {
 
   // 🔹 Handle Edit (you can navigate to edit page or open modal)
   const handleEdit = (student) => {
-    // Example: redirect to an edit page
-    window.location.href = `/edit-student/${student.student_id}`;
-
-    // OR open modal (if you have a modal component)
-    // setSelectedStudent(student);
-    // setShowEditModal(true);
+    setSelectedStudent(student);
+    setShowEditModal(true);
   };
 
   return (
@@ -138,7 +139,8 @@ export function StudentsListEdit() {
 
       {/* Table Display */}
       {filteredStudents.length === 0 ? (
-        <Alert variant="warning">No student information found</Alert>) : (<Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
+        <Alert variant="warning">No student information found</Alert>) : (
+        <Table striped bordered hover responsive className="align-middle shadow-sm mt-3">
           <thead>
             <tr>
               <th>Student ID</th>
@@ -186,6 +188,14 @@ export function StudentsListEdit() {
           </tbody>
         </Table>
       )}
+      <EditStudentModal
+        show={showEditModal}
+        handleClose={() => setShowEditModal(false)}
+        student={selectedStudent}
+        refreshList={fetchStudents}
+      />
+
     </Container>
+
   );
 }

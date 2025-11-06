@@ -42,6 +42,9 @@ export function Navigationbar() {
                     <LinkContainer to="/">
                         <Nav.Link>Home</Nav.Link>
                     </LinkContainer>
+                    <LinkContainer to="/companies">
+                        <Nav.Link>Companies</Nav.Link>
+                    </LinkContainer>
                     <LinkContainer to="/aboutus">
                         <Nav.Link>About Us</Nav.Link>
                     </LinkContainer>

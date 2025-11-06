@@ -1,5 +1,5 @@
 import { getConnectionObject } from "../configs/dbConfig.js";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "internify"; // ⚠️ ideally use process.env.JWT_SECRET
@@ -32,6 +32,7 @@ export async function loginUser(request, response) {
     // ✅ Compare passwords
     // const isMatch = bcrypt.compareSync(password, user.password);
     if (password != user.password) {
+      // if (!isMatch) {
       return response.status(401).send({ message: "Invalid email or password" });
     }
 
@@ -79,6 +80,7 @@ export async function signUpUser(request, response){
           INSERT INTO student (name, email, phone, password, resume_url, education)
           VALUES (?, ?, ?, ?, ?, ?)
         `;
+        // values = [name, email, phone, hashedPassword, resume_url || null, education || null];
         values = [name, email, phone, password, resume_url || null, education || null];
         break;
 
@@ -87,6 +89,7 @@ export async function signUpUser(request, response){
           INSERT INTO supervisor (name, email, phone, password)
           VALUES (?, ?, ?, ?)
         `;
+        // values = [name, email, phone, hashedPassword];
         values = [name, email, phone, password];
         break;
 
@@ -95,6 +98,7 @@ export async function signUpUser(request, response){
           INSERT INTO company (name, email, password, tech_domain)
           VALUES (?, ?, ?, ?)
         `;
+        // values = [name, email, hashedPassword, tech_domain || null];
         values = [name, email, password, tech_domain || null];
         break;
 

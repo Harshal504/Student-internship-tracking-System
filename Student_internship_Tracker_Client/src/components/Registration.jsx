@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Button, Container, Form, Card } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button, Container, Form, Card, InputGroup } from "react-bootstrap";
+import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/SignInservices"; // create this API call
+import { registerUser } from "../services/SignInservices";
+import { getAllSupervisors } from "../services/Supervisorservices"; // 🔹 Supervisor API
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -13,17 +15,58 @@ export default function SignUp() {
     resume_url: "",
     education: "",
     tech_domain: "",
+    supervisor_id: "",
   });
 
+  const [supervisors, setSupervisors] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
+  // 🔹 Fetch supervisors on mount
+  useEffect(() => {
+    const fetchSupervisors = async () => {
+      try {
+        const response = await getAllSupervisors();
+        if (response.status === 200) {
+          setSupervisors(response.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch supervisors:", error);
+      }
+    };
+    fetchSupervisors();
+  }, []);
+
+  // 🔹 Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // 🔹 Password validation
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setFormData({ ...formData, password: value });
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (!passwordRegex.test(value)) {
+      setPasswordError(
+        "Password must be at least 6 characters and include at least 1 letter and 1 number."
+      );
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  // 🔹 Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (passwordError) {
+      alert("Please enter a valid password before submitting.");
+      return;
+    }
 
     try {
       const response = await registerUser(formData);
@@ -40,18 +83,13 @@ export default function SignUp() {
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100">
       <Card className="p-4 shadow-lg rounded-4" style={{ maxWidth: "500px", width: "100%" }}>
-        <h3 className="text-center mb-4 text-success">Sign Up</h3>
+        <h3 className="text-center mb-4 text-primary">Sign Up</h3>
 
         <Form onSubmit={handleSubmit}>
           {/* Role Selector */}
           <Form.Group controlId="formRole" className="mb-3">
             <Form.Label>Role</Form.Label>
-            <Form.Select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
+            <Form.Select name="role" value={formData.role} onChange={handleChange} required>
               <option value="">Select Role</option>
               <option value="student">Student</option>
               <option value="company">Company</option>
@@ -59,7 +97,7 @@ export default function SignUp() {
             </Form.Select>
           </Form.Group>
 
-          {/* Common fields */}
+          {/* Common Fields */}
           <Form.Group className="mb-3">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
@@ -84,7 +122,7 @@ export default function SignUp() {
             />
           </Form.Group>
 
-          {/* Conditional Fields */}
+          {/* Student Fields */}
           {formData.role === "student" && (
             <>
               <Form.Group className="mb-3">
@@ -92,7 +130,7 @@ export default function SignUp() {
                 <Form.Control
                   type="tel"
                   name="phone"
-                  placeholder="Enter phone"
+                  placeholder="Enter phone number"
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -120,9 +158,32 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
               </Form.Group>
+
+              {/* Supervisor Dropdown */}
+              <Form.Group className="mb-3">
+                <Form.Label>Select Supervisor</Form.Label>
+                <Form.Select
+                  name="supervisor_id"
+                  value={formData.supervisor_id}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Supervisor</option>
+                  {supervisors.length > 0 ? (
+                    supervisors.map((sup) => (
+                      <option key={sup.id} value={sup.id}>
+                        {sup.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>Loading supervisors...</option>
+                  )}
+                </Form.Select>
+              </Form.Group>
             </>
           )}
 
+          {/* Supervisor Fields */}
           {formData.role === "supervisor" && (
             <Form.Group className="mb-3">
               <Form.Label>Phone Number</Form.Label>
@@ -137,6 +198,7 @@ export default function SignUp() {
             </Form.Group>
           )}
 
+          {/* Company Fields */}
           {formData.role === "company" && (
             <Form.Group className="mb-3">
               <Form.Label>Tech Domain</Form.Label>
@@ -150,19 +212,38 @@ export default function SignUp() {
             </Form.Group>
           )}
 
+          {/* Password Field with Validation & Toggle */}
           <Form.Group className="mb-4">
             <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Create password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <InputGroup>
+              <Form.Control
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Create password"
+                value={formData.password}
+                onChange={handlePasswordChange}
+                required
+              />
+              <Button
+                variant="outline-secondary"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeSlash /> : <Eye />}
+              </Button>
+            </InputGroup>
+
+            {passwordError && (
+              <small className="text-danger">{passwordError}</small>
+            )}
           </Form.Group>
 
-          <Button variant="success" type="submit" className="w-100">
+          <Button
+            variant="primary"
+            type="submit"
+            className="w-100"
+            disabled={!!passwordError || !formData.password}
+          >
             Sign Up
           </Button>
         </Form>

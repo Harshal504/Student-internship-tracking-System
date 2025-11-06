@@ -1,23 +1,22 @@
 // src/services/dashboardServices.js
 import axios from "axios";
+import { getAuthHeader } from "./TokenService";
 
 // 🔹 Student
 export const getStudentSkills = (studentId) =>
-  axios.get(`http://localhost:4400/skills/${studentId}`);
+  axios.get(`http://localhost:4400/skills/${studentId}`, getAuthHeader());
 
 export const getStudentApplications = (studentId) =>
-  axios.get(`http://localhost:4400/application/data/${studentId}`);
+  axios.get(`http://localhost:4400/application/data/${studentId}`,getAuthHeader());
 
-export const getAllInternships = () =>
-  axios.get(`http://localhost:4400/internship/data`);
 
 // 🔹 Company
 export const getCompanyInternships = (companyId) =>
-  axios.get(`http://localhost:4400/internship/${companyId}`);
+  axios.get(`http://localhost:4400/internship/${companyId}`,getAuthHeader());
 
 export const getCompanyApplications = (companyId) =>
-  axios.get(`http://localhost:4400/application/${companyId}`);
+  axios.get(`http://localhost:4400/application/${companyId}`,getAuthHeader());
 
 // 🔹 Supervisor
 export const getStudentsBySupervisor = (supervisorId) =>
-  axios.get(`http://localhost:4400/student/${supervisorId}`);
+  axios.get(`http://localhost:4400/student/${supervisorId}`,getAuthHeader());

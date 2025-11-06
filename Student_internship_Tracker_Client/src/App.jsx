@@ -38,6 +38,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/companies" element={<CompaniesList />} />
 
           {/* 🔒 Protected routes */}
 
@@ -51,7 +52,7 @@ function App() {
           >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/internships" element={<InternshipsList />} />
-            <Route path="/companies" element={<CompaniesList />} />
+
           </Route>
 
           {/* 👨‍🎓 Student-only routes */}
@@ -59,9 +60,9 @@ function App() {
             element={<PrivateRoute allowedRoles={[ROLES.STUDENT]} />}
           >
             <Route path="/applicationsEdit" element={<ApplicationsManager />} />
-          
-          <Route path="/applyInternship" element={<ApplyInternship />} />
-          
+
+            <Route path="/applyInternship" element={<ApplyInternship />} />
+
           </Route>
 
           {/* 🏢 Company-only routes */}
@@ -71,7 +72,7 @@ function App() {
             <Route path="/applicationsStatusUpdate" element={<ApplicationsStatusUpdate />} />
             <Route path="/internshipStatusUpdate" element={<InternshipStatusUpdate />} />
             <Route path="/internshipform" element={<PostInternship />} />
- 
+
           </Route>
 
           {/* 👨‍🏫 Supervisor-only routes */}

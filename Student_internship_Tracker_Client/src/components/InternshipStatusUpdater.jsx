@@ -3,6 +3,7 @@ import { Alert, Button, Col, Container, Form, Row, Table } from "react-bootstrap
 import { Bounce, toast } from "react-toastify";
 import { getAllInternships, updateInternshipStatus } from "../services/Internshipservices";
 import "../styles/tablestyle.css";
+import { getUser } from "../services/UserService";
 
 export function InternshipStatusUpdate() {
     const [internships, setInternships] = useState([]);
@@ -12,17 +13,32 @@ export function InternshipStatusUpdate() {
         companyId: "",
         status: "",
     });
+
+    
     const [updatedStatuses, setUpdatedStatuses] = useState({});
 
     const fetchInternships = async () => {
-        try {
-            const response = await getAllInternships();
-            setInternships(response.data);
-            setFilteredInternships(response.data);
-        } catch (error) {
-            console.error("Error fetching internships:", error);
-        }
-    };
+  try {
+    const response = await getAllInternships();
+    const loggedInCompanyId = getUser()?.company_id;
+
+    let allInternships = response.data;
+
+    // ✅ Filter only internships belonging to the logged-in company
+    if (loggedInCompanyId) {
+      allInternships = allInternships.filter(
+        (app) => app.company_id === loggedInCompanyId
+      );
+    }
+
+    // ✅ Use the filtered list, not the original response
+    setInternships(allInternships);
+    setFilteredInternships(allInternships);
+  } catch (error) {
+    console.error("Error fetching internships:", error);
+  }
+};
+
 
     useEffect(() => {
         fetchInternships();
@@ -34,12 +50,6 @@ export function InternshipStatusUpdate() {
         if (filters.internshipId.trim() !== "") {
             result = result.filter((i) =>
                 i.internship_id.toString().includes(filters.internshipId.trim())
-            );
-        }
-
-        if (filters.companyId.trim() !== "") {
-            result = result.filter((i) =>
-                i.company_id.toString().includes(filters.companyId.trim())
             );
         }
 

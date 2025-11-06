@@ -3,11 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {
   getStudentSkills,
   getStudentApplications,
-  getAllInternships,
   getCompanyInternships,
   getCompanyApplications,
   getStudentsBySupervisor,
 } from "../services/Dashboardservices";
+import {getAllInternships}  from "../services/Internshipservices"
 
 export function Dashboard() {
   const [skills, setSkills] = useState([]);

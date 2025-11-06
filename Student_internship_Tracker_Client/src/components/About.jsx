@@ -1,69 +1,127 @@
 import React from 'react';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
 
 export function AboutUs() {
+    const teamIntro = `Our development team — Harshal, Rachana, and Vaishakh — began the project by collaboratively designing the database schema, finalizing the API structure, and planning the overall layout and components required for the application. Together, we ensured a smooth workflow from backend setup to frontend integration, maintaining consistency in design and functionality throughout the development process.`;
+
     const people = [
         {
-            name: 'Rahul Sharma',
-            image: 'https://www.wallofcelebrities.com/celebrity/barack-obama/pictures/xxlarge/barack-obama_442397.jpg', // Replace with actual image
+            name: 'Harshal Tarmale',
+            image: '../../public/Harshal.jpeg', 
             description:
-                'Rahul is a passionate full-stack developer focused on building practical web applications with clean UI/UX and robust backend logic. He created this internship tracker portal to help students streamline their internship journey.',
-            github: 'https://github.com/rahulsharma-dev',
+                'Harshal developed the Student APIs and their associated display components. He also implemented the Application-related APIs and UI, as well as the Sign In and Sign Up functionalities, including both frontend components and backend integration. He also created Home page and did  inital implementation of JWT tokenization for authentication.',
+            github: 'https://github.com/Harshal504',
         },
+        
         {
-            name: 'Sneha Verma',
-            image: 'https://tse2.mm.bing.net/th/id/OIP.dfhDPANaHarH0sv3cAmvfgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3', // Replace with actual image
+            name: 'Rachana Khadse',
+            image: '../../public/rachana.jpeg', 
             description:
-                'Sneha is a creative frontend developer who specializes in responsive design and accessibility. She contributed to the UI components and styling of the internship tracker portal.',
-            github: 'https://github.com/snehaverma-ui',
+                'Rachana worked on the Supervisor APIs and built the corresponding listing component to display supervisors efficiently. She also developed the Dashboard module, which displays key information about the currently logged-in user. She also created Contact Us page.',
+            github: 'https://github.com/rachanakhadse',
         },
-                {
-            name: 'Rohit Sharma',
-            image: 'https://admin.thecricketer.com/weblab/Sites/96c8b790-b593-bfda-0ba4-ecd3a9fdefc2/resources/images/site/sharmaheadshot-min.jpg', // Replace with actual image
+
+        {
+            name: 'Vaishakh Malode',
+            image: '../../public/vaishakh.jpeg', 
             description:
-                'Rohit Sharma is a celebrated Indian cricketer known for his elegant batting and leadership. He currently captains the Indian national team and the Mumbai Indians in the IPL.',
-            github: 'https://github.com/snehaverma-ui',
-        }
+                'Vaishakh worked on the Company-related modules, developing the APIs and components required to fetch and display company and internship data. He also created APIs and components for internship applications and displaying applied internships. Additionally, he developed the About Us page, ensuring a clean and informative presentation of developers work.',            
+            github: 'hhttps://github.com/Zenmox',
+        },
+        
     ];
+
+    const finalNote =
+        'At the final stage, all three developers collaborated to set up component routing, JWT tokenization and authorization, ensuring secure and efficient navigation across the application.';
 
     return (
         <Container className="my-5">
-            <h2 className="text-center mb-4">About the Developers</h2>
-            {people.map((person, index) => (
-                <Row
-                    key={index}
-                    className="border rounded p-3 shadow-sm align-items-center mb-4"
-                    style={{ borderWidth: '5px', borderStyle: 'solid' }}
-                >
-                    <Col md={4} className="text-center mb-3 mb-md-0">
-                        <Image
-                            src={person.image}
-                            alt={person.name}
-                            rounded
-                            style={{
-                                width: '150px',
-                                height: '180px',
-                                objectFit: 'cover',
-                                border: '1px solid #ccc',
-                                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                            }}
-                        />
+            <h2
+                className="text-center mb-4 fw-bold"
+                style={{ color: '#007bff', fontFamily: 'Poppins, sans-serif' }}
+            >
+                About the Developers
+            </h2>
 
-                    </Col>
-                    <Col md={8}>
-                        <h4>{person.name}</h4>
-                        <p>{person.description}</p>
-                        <Button
-                            variant="dark"
-                            href={person.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Visit GitHub
-                        </Button>
-                    </Col>
-                </Row>
+            <p
+                className="text-center mx-auto mb-5"
+                style={{
+                    maxWidth: '850px',
+                    fontSize: '1.05rem',
+                    color: '#4a4a4a',
+                    lineHeight: '1.7',
+                }}
+            >
+                {teamIntro}
+            </p>
+
+            {people.map((person, index) => (
+                <Card
+                    key={index}
+                    className="shadow-sm border-0 mb-4"
+                    style={{
+                        borderRadius: '15px',
+                        background: 'linear-gradient(180deg, #f9fbff 0%, #ffffff 100%)',
+                    }}
+                >
+                    <Row className="align-items-center p-3">
+                        <Col md={4} className="text-center mb-3 mb-md-0">
+                            <Image
+                                src={person.image}
+                                alt={person.name}
+                                roundedCircle
+                                style={{
+                                    width: '150px',
+                                    height: '150px',
+                                    objectFit: 'cover',
+                                    border: '4px solid #007bff',
+                                    boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                                }}
+                            />
+                        </Col>
+                        <Col md={8}>
+                            <h4
+                                className="fw-bold"
+                                style={{
+                                    color: '#0056b3',
+                                    fontFamily: 'Poppins, sans-serif',
+                                }}
+                            >
+                                {person.name}
+                            </h4>
+                            <p
+                                style={{
+                                    color: '#555',
+                                    fontSize: '1rem',
+                                    lineHeight: '1.6',
+                                }}
+                            >
+                                {person.description}
+                            </p>
+                            <Button
+                                variant="outline-primary"
+                                href={person.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="fw-semibold"
+                            >
+                                Visit GitHub
+                            </Button>
+                        </Col>
+                    </Row>
+                </Card>
             ))}
+
+            <p
+                className="text-center mt-4 fw-semibold"
+                style={{
+                    fontSize: '1.05rem',
+                    color: '#0d6efd',
+                    fontFamily: 'Poppins, sans-serif',
+                }}
+            >
+                {finalNote}
+            </p>
         </Container>
     );
 }
