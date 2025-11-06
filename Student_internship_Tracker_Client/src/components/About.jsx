@@ -26,7 +26,7 @@ export function AboutUs() {
             image: '../../public/vaishakh.jpeg', 
             description:
                 'Vaishakh worked on the Company-related modules, developing the APIs and components required to fetch and display company and internship data. He also created APIs and components for internship applications and displaying applied internships. Additionally, he developed the About Us page, ensuring a clean and informative presentation of developers work.',            
-            github: 'hhttps://github.com/Zenmox',
+            github: 'https://github.com/Zenmox',
         },
         
     ];
