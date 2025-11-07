@@ -91,91 +91,91 @@ app.listen(4400, () => {
 
 
 
-// app.post("/student/hash-passwords", async (req, res) => {
-//     try {
-//         const conn = getConnectionObject();
-//         const [students] = await conn.execute("SELECT student_id, password FROM student");
-//         console.log(students);
+app.post("/student/hash-passwords", async (req, res) => {
+    try {
+        const conn = getConnectionObject();
+        const [students] = await conn.execute("SELECT student_id, password FROM student");
+        console.log(students);
 
-//         for (const student of students) {
-//             // Skip if already hashed (bcrypt hashes start with "$2")
-//             const password = student.password;
-//             if (!password.startsWith("$2")) {
-//                 const hashed = await bcrypt.hash(password, 10);
+        for (const student of students) {
+            // Skip if already hashed (bcrypt hashes start with "$2")
+            const password = student.password;
+            if (!password.startsWith("$2")) {
+                const hashed = await bcrypt.hash(password, 10);
 
-//                 const result = await conn.execute("UPDATE student SET password = ? WHERE student_id = ?", [
-//                     hashed,
-//                     student.student_id,
-//                 ]);
+                const result = await conn.execute("UPDATE student SET password = ? WHERE student_id = ?", [
+                    hashed,
+                    student.student_id,
+                ]);
 
-//                 console.log(result);
-//             }
-//         }
+                console.log(result);
+            }
+        }
 
-//         res.json({ message: "Passwords hashed successfully!" });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: "Error hashing passwords" });
-//     }
-// });
+        res.json({ message: "Passwords hashed successfully!" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error hashing passwords" });
+    }
+});
 
-// app.post("/supervisor/hash-passwords", async (req, res) => {
-//   try {
-//     const conn = getConnectionObject();
-//     const [supervisors] = await conn.execute("SELECT supervisor_id, password FROM supervisor");
+app.post("/supervisor/hash-passwords", async (req, res) => {
+  try {
+    const conn = getConnectionObject();
+    const [supervisors] = await conn.execute("SELECT supervisor_id, password FROM supervisor");
 
-//     for (const supervisor of supervisors) {
-//       const password = supervisor.password;
+    for (const supervisor of supervisors) {
+      const password = supervisor.password;
 
-//       if (!password || typeof password !== "string") {
-//         console.log(`⚠️ Skipping supervisor ID ${supervisor.supervisor_id}: invalid password`);
-//         continue;
-//       }
+      if (!password || typeof password !== "string") {
+        console.log(`⚠️ Skipping supervisor ID ${supervisor.supervisor_id}: invalid password`);
+        continue;
+      }
 
-//       if (!password.startsWith("$2")) {
-//         const hashed = await bcrypt.hash(password, 10);
-//         await conn.execute("UPDATE supervisor SET password = ? WHERE supervisor_id = ?", [
-//           hashed,
-//           supervisor.supervisor_id,
-//         ]);
-//         console.log(`✅ Updated supervisor ID ${supervisor.supervisor_id}`);
-//       }
-//     }
+      if (!password.startsWith("$2")) {
+        const hashed = await bcrypt.hash(password, 10);
+        await conn.execute("UPDATE supervisor SET password = ? WHERE supervisor_id = ?", [
+          hashed,
+          supervisor.supervisor_id,
+        ]);
+        console.log(`✅ Updated supervisor ID ${supervisor.supervisor_id}`);
+      }
+    }
 
-//     res.json({ message: "Supervisor passwords hashed successfully!" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Error hashing supervisor passwords" });
-//   }
-// });
+    res.json({ message: "Supervisor passwords hashed successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error hashing supervisor passwords" });
+  }
+});
 
-// app.post("/company/hash-passwords", async (req, res) => {
-//   try {
-//     const conn = getConnectionObject();
-//     const [companies] = await conn.execute("SELECT company_id, password FROM company");
+app.post("/company/hash-passwords", async (req, res) => {
+  try {
+    const conn = getConnectionObject();
+    const [companies] = await conn.execute("SELECT company_id, password FROM company");
 
-//     for (const company of companies) {
-//       const password = company.password;
+    for (const company of companies) {
+      const password = company.password;
 
-//       if (!password || typeof password !== "string") {
-//         console.log(`⚠️ Skipping company ID ${company.company_id}: invalid password`);
-//         continue;
-//       }
+      if (!password || typeof password !== "string") {
+        console.log(`⚠️ Skipping company ID ${company.company_id}: invalid password`);
+        continue;
+      }
 
-//       if (!password.startsWith("$2")) {
-//         const hashed = await bcrypt.hash(password, 10);
-//         await conn.execute("UPDATE company SET password = ? WHERE company_id = ?", [
-//           hashed,
-//           company.company_id,
-//         ]);
-//         console.log(`✅ Updated company ID ${company.company_id}`);
-//       }
-//     }
+      if (!password.startsWith("$2")) {
+        const hashed = await bcrypt.hash(password, 10);
+        await conn.execute("UPDATE company SET password = ? WHERE company_id = ?", [
+          hashed,
+          company.company_id,
+        ]);
+        console.log(`✅ Updated company ID ${company.company_id}`);
+      }
+    }
 
-//     res.json({ message: "Company passwords hashed successfully!" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Error hashing company passwords" });
-//   }
-// });
+    res.json({ message: "Company passwords hashed successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error hashing company passwords" });
+  }
+});
        

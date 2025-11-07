@@ -74,11 +74,13 @@ export function ApplyInternship() {
                                 <td>{internship.status}</td>
                                 <td>
                                     <Button
-                                        variant="success"
+                                        variant={internship.status.toLowerCase() === "closed" ? "secondary" : "success"}
                                         size="sm"
                                         onClick={() => handleApply(internship)}
+                                        disabled={internship.status.toLowerCase() === "closed"}
                                     >
-                                        Apply
+                                        {internship.status.toLowerCase() === "closed" ? "Closed" : "Apply"}
+                                        {/* Apply */}
                                     </Button>
                                 </td>
                             </tr>
