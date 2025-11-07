@@ -30,7 +30,7 @@ export function Homepage() {
                 students effectively ensuring meaningful and successful experiences.
               </p>
 
-              <Button variant="primary" size="lg" onClick={() => navigate("/signin")} className="mt-4">
+              <Button variant="primary" size="lg" onClick={() => navigate("/signup")} className="mt-4">
                 Get Started
               </Button>
             </Col>
