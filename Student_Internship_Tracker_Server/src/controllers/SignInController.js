@@ -30,9 +30,9 @@ export async function loginUser(request, response) {
     const user = rows[0];
 
     // ✅ Compare passwords
-    // const isMatch = bcrypt.compareSync(password, user.password);
-    if (password != user.password) {
-      // if (!isMatch) {
+    const isMatch = bcrypt.compareSync(password, user.password);
+    // if (password != user.password) {
+      if (!isMatch) {
       return response.status(401).send({ message: "Invalid email or password" });
     }
 
@@ -70,7 +70,7 @@ export async function signUpUser(request, response){
       return response.status(400).json({ message: "Missing required fields" });
 
     // hash password
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     let query, values;
 
@@ -80,8 +80,8 @@ export async function signUpUser(request, response){
           INSERT INTO student (name, email, phone, password, resume_url, education)
           VALUES (?, ?, ?, ?, ?, ?)
         `;
-        // values = [name, email, phone, hashedPassword, resume_url || null, education || null];
-        values = [name, email, phone, password, resume_url || null, education || null];
+        values = [name, email, phone, hashedPassword, resume_url || null, education || null];
+        // values = [name, email, phone, password, resume_url || null, education || null];
         break;
 
       case "supervisor":
@@ -89,8 +89,8 @@ export async function signUpUser(request, response){
           INSERT INTO supervisor (name, email, phone, password)
           VALUES (?, ?, ?, ?)
         `;
-        // values = [name, email, phone, hashedPassword];
-        values = [name, email, phone, password];
+        values = [name, email, phone, hashedPassword];
+        // values = [name, email, phone, password];
         break;
 
       case "company":
@@ -98,8 +98,8 @@ export async function signUpUser(request, response){
           INSERT INTO company (name, email, password, tech_domain)
           VALUES (?, ?, ?, ?)
         `;
-        // values = [name, email, hashedPassword, tech_domain || null];
-        values = [name, email, password, tech_domain || null];
+        values = [name, email, hashedPassword, tech_domain || null];
+        // values = [name, email, password, tech_domain || null];
         break;
 
       default:
